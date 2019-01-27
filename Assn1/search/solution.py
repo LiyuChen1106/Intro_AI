@@ -30,7 +30,18 @@ def heur_manhattan_distance(state):
     #When calculating distances, assume there are no obstacles on the grid.
     #You should implement this heuristic function exactly, even if it is tempting to improve it.
     #Your function should return a numeric value; this is the estimate of the distance to the goal.
-    return 0
+    hval = 0
+    for box in state.boxes:
+        if box not in state.storage:
+            nearest_m_distance = state.width * state.height
+            for storage in state.storage:
+                m_distance = abs(box[0] - storage[0]) + abs(box[1] - storage[1])
+                if m_distance < nearest_m_distance:
+                    nearest_m_distance = m_distance
+
+            hval += nearest_m_distance
+
+    return hval
 
 
 #SOKOBAN HEURISTICS
